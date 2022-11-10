@@ -16,7 +16,7 @@ from confy import env
 class WaitingPage(TemplateView):
     # preperation to replace old homepage with screen designs..
 
-    template_name = 'queuewaiting/home.html'
+    template_name = 'maint/home.html'
     def render_to_response(self, context):
 
         template = get_template(self.template_name)

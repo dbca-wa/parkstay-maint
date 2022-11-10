@@ -13,7 +13,7 @@ def main():
             confy.read_environment_file()
 
 
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'queuewaiting.settings')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'maint.settings')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:

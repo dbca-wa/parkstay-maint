@@ -12,17 +12,7 @@
 <center>
 <div class='box'>
         <div class='maintext' id='warning-message'>
-        Please wait. We are experiencing exceptionally high demand. Thank you for your patience.
-        </div>
-        <div class='mainbtn' id='mainbtn-loader'>
-                <button class="btn btn-primary" type="button" disabled>
-                  <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-                  Please wait loading...
-                </button>
-        </div>
-
-        <div class='mainbtn' id='mainbtn-click'>
-        <button class='btn btn-success' id='booking-btn' >Click to access Parkstay Booking</button>
+	The Park Stay WA website will be closed to all bookings from 11pm Tuesday 15 November and will open at 10am Wednesday 16 November.   
         </div>
 </div>
 </center>
@@ -57,16 +47,6 @@ body {
 }
 </style>
 
-        <script>
-                $('#booking-btn').click(function() {
-			window.location.href = "{{ settings.CONTINUE_URL}}";
-                });
-                setTimeout(function(){
-                $('#mainbtn-click').show();
-                $('#mainbtn-loader').hide();
-                $('#warning-message').hide();
-		} ,{{ settings.WAIT_LOADING_SECONDS}}000)
-        </script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-108679294-1"></script>
          <script>
                             window.dataLayer = window.dataLayer || [];
@@ -75,10 +55,4 @@ body {
      gtag('config', 'UA-108679294-1');
  </script>
 
- <script src="{{ settings.QUEUE_URL }}/static/js/django_queue_manager/site-queue-manager.js?ver=f6fac21e89c7ad373d3413904579a506"></script>
- <script>
-      if (typeof sitequeuemanager !== "undefined") {
-	      sitequeuemanager.init('{{ settings.QUEUE_DOMAIN }} ','{{ settings.QUEUE_URL }}','{{ settings.QUEUE_GROUP_NAME }}','{{ settings.QUEUE_ACTIVE_HOSTS }}');
-      }
- </script>
  </div>

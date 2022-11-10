@@ -1,5 +1,5 @@
 # Prepare the base environment.
-FROM ubuntu:22.04 as builder_base_queuewaiting
+FROM ubuntu:22.04 as builder_base_maint
 MAINTAINER asi@dbca.wa.gov.au
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=Australia/Perth
@@ -15,7 +15,7 @@ RUN apt-get install --no-install-recommends -y sqlite3 vim postgresql-client ssh
 RUN ln -s /usr/bin/python3 /usr/bin/python 
 RUN pip install --upgrade pip
 # Install Python libs from requirements.txt.
-FROM builder_base_queuewaiting as python_libs_queuewaiting
+FROM builder_base_maint as python_libs_maint
 WORKDIR /app
 COPY requirements.txt ./
 RUN pip3 install --no-cache-dir -r requirements.txt \
@@ -25,7 +25,7 @@ RUN pip3 install --no-cache-dir -r requirements.txt \
   && rm -rf /var/lib/{apt,dpkg,cache,log}/ /tmp/* /var/tmp/*
 
 # Install the project (ensure that frontend projects have been built prior to this step).
-FROM python_libs_queuewaiting
+FROM python_libs_maint
 COPY timezone /etc/timezone
 ENV TZ=Australia/Perth
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
@@ -34,7 +34,7 @@ RUN chmod 755 /startup.sh
 COPY gunicorn.ini manage.py ./
 #COPY ledger ./ledger
 RUN touch /app/.env
-COPY queuewaiting ./queuewaiting
+COPY maint ./maint
 RUN mkdir /app/logs
 RUN python manage.py collectstatic --noinput
 #RUN apt-get install --no-install-recommends -y python-pil
